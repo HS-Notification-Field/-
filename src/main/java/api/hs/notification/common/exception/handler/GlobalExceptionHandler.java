@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import static api.hs.notification.common.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
 import static api.hs.notification.common.exception.type.ErrorCode.INVALID_REQUEST;
 
 /**
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler extends CustomizedResponseEntityExceptionHan
 
   @ExceptionHandler(Exception.class)
   public final ResponseEntity<?> handleAllException() {
-    return ResponseEntity.status(INVALID_REQUEST.getHttpStatus()).body(INVALID_REQUEST.getMessage());
+    return ResponseEntity.status(INTERNAL_SERVER_ERROR.getHttpStatus()).body(responseService.failure(INTERNAL_SERVER_ERROR.getMessage()));
   }
 
 }
